@@ -3,8 +3,7 @@ const fetchAPI = async <T>(
     setter: React.Dispatch<React.SetStateAction<T>>
 ): Promise<void> => {
     const url =
-        "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
-
+      "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
     const body = {
         api: apiName,
     };
