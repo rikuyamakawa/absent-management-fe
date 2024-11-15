@@ -1,5 +1,4 @@
-import { Radio, RadioGroup, useRadio, } from "@yamada-ui/react"
-
+import { Button, Heading, Radio, RadioGroup, Textarea, VStack, } from "@yamada-ui/react"
 
 function Vote() {
     const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
@@ -8,21 +7,28 @@ function Vote() {
         const pass = formData.get("pass")
         console.log(pass)
     }
-    const CustomRadio: FC<ReturnType<UseRadioGroupReturn["getRadioProps"]>> = (
-        props,
-      ) => {
-        const { getInputProps, getIconProps } = useRadio(props)
 
     return (
         <>
-            <h1>投票ページ</h1>
+            <Heading as="h1" size="lg" isTruncated>
+                投票
+            </Heading>
+
             <form onSubmit={sendHandler}>
-                <button>賛成</button>
-                <button>反対</button><br />
-                
-                <label>パスワード</label><br />
-                <input name="pass" /><br />
-                <button type="submit">送信</button>
+                <VStack>
+                    <RadioGroup direction="row" defaultValue="賛成">
+                        <Radio value="賛成">賛成</Radio>
+                        <Radio value="反対">反対</Radio>
+
+                    </RadioGroup>
+
+
+                </VStack>
+                <Textarea variant='flushed' placeholder="パスワード"></Textarea>
+
+                <Button colorScheme={"secondary"} variant={"outline"}>
+                    送信
+                </Button>
             </form>
         </>
     )
