@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DropdownList from './DropdownList';
 import { fetchAPI } from "./core/fetchAPI";
-import { Button, Option, Select, Textarea } from "@yamada-ui/react";
+import { Button, Flex, Textarea } from "@yamada-ui/react";
 
 export interface ClassItem {
     id: string;
@@ -12,6 +12,7 @@ const Contact: React.FC = () => {
     const [classes, setClasses] = useState<ClassItem[]>([]);  // 初期値を空の配列に
 
     const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
+        console.log("sendHandler");
         data.preventDefault();
         const formData = new FormData(data.currentTarget);
         const name = formData.get("name");
@@ -27,28 +28,36 @@ const Contact: React.FC = () => {
     }, []);
 
     return (
+
+        <Flex
+            height="100vh"
+            justify="center"
+            align="center"
+        >
+
         <>
-            <h1>連絡ページ</h1>
+
             <form onSubmit={sendHandler}>
-                <Textarea variant='flushed' placeholder="氏名"></Textarea>
-                <input name="name" /><br />
+                    <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>連絡ページ</h1><br />
+                    <label style={{ fontSize: "1.2rem" }}>氏名</label><br />
+                    <Textarea name="name" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
                 <label>科目名</label><br />
-                <Select placeholder="キャラクターを選択">
+                    {/* {<Select placeholder="科目名を選択">
                     <Option value="孫悟空">孫悟空</Option>
                     <Option value="ベジータ">ベジータ</Option>
                     <Option value="フリーザ">フリーザ</Option>
-                </Select>
+                    </Select>} */}
                 <div>
                     <DropdownList classes={classes} /> {/* classesをDropdownListに渡す */}
                 </div>
-                <Textarea variant='flushed' placeholder="パスワード"></Textarea>
-                
-                <Button colorScheme={"secondary"} variant={"outline"}>
+                    <label>パスワード</label><br />
+                    <Textarea name="pass" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
+                    <Button type="submit" colorScheme={"secondary"} variant={"outline"} marginTop="2rem">
                     送信
-                </Button>
-                
+                    </Button>
             </form>
-        </>
+            </>
+        </Flex>
     );
 };
 
