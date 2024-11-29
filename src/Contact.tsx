@@ -10,7 +10,6 @@ export interface ClassItem {
 
 const Contact: React.FC = () => {
     const [classes, setClasses] = useState<ClassItem[]>([]);  // 初期値を空の配列に
-
     const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
         console.log("sendHandler");
         data.preventDefault();
@@ -32,23 +31,14 @@ const Contact: React.FC = () => {
         <Flex
             height="100vh"
             justify="center"
-            align="center"
-        >
-
-        <>
-
+            align="center">
             <form onSubmit={sendHandler}>
                     <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>連絡ページ</h1><br />
                     <label style={{ fontSize: "1.2rem" }}>氏名</label><br />
                     <Textarea name="name" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
                 <label>科目名</label><br />
-                    {/* {<Select placeholder="科目名を選択">
-                    <Option value="孫悟空">孫悟空</Option>
-                    <Option value="ベジータ">ベジータ</Option>
-                    <Option value="フリーザ">フリーザ</Option>
-                    </Select>} */}
                 <div>
-                    <DropdownList classes={classes} /> {/* classesをDropdownListに渡す */}
+                    <DropdownList classes={classes} name="class" /> {/* nameプロパティを追加 */}
                 </div>
                     <label>パスワード</label><br />
                     <Textarea name="pass" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
@@ -56,7 +46,6 @@ const Contact: React.FC = () => {
                     送信
                     </Button>
             </form>
-            </>
         </Flex>
     );
 };
