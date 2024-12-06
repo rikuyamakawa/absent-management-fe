@@ -10,16 +10,15 @@ export interface ClassItem {
 
 const Contact: React.FC = () => {
     const [classes, setClasses] = useState<ClassItem[]>([]);  // 初期値を空の配列に
+    const [targetClass, setTargetClass] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
         console.log("sendHandler");
         data.preventDefault();
-        const formData = new FormData(data.currentTarget);
-        const name = formData.get("name");
         console.log(name);
-        const pass = formData.get("pass");
-        console.log(pass);
-        const classData = formData.get("class");
-        console.log(classData);
+        console.log(password);
+        console.log(targetClass);
     };
 
     useEffect(() => {
@@ -35,13 +34,13 @@ const Contact: React.FC = () => {
             <form onSubmit={sendHandler}>
                     <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>連絡ページ</h1><br />
                     <label style={{ fontSize: "1.2rem" }}>氏名</label><br />
-                    <Textarea name="name" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
+                <Textarea name="name" value={name} onChange={(e) => setName(e.target.value)} variant='flushed' placeholder="入力してください" rows={1} />
                 <label>科目名</label><br />
                 <div>
-                    <DropdownList classes={classes} name="class" /> {/* nameプロパティを追加 */}
+                    <DropdownList classes={classes} setClass={setTargetClass} /> {/* nameプロパティを追加 */}
                 </div>
                     <label>パスワード</label><br />
-                    <Textarea name="pass" variant='flushed' placeholder="入力してください" rows={1}></Textarea>
+                <Textarea name="pass" value={password} onChange={(e) => setPassword(e.target.value)} variant='flushed' placeholder="入力してください" rows={1} />
                     <Button type="submit" colorScheme={"secondary"} variant={"outline"} marginTop="2rem">
                     送信
                     </Button>

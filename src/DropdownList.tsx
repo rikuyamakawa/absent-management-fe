@@ -1,21 +1,22 @@
 import { ClassItem } from "./Contact";
-
+import { Select, Option } from "@yamada-ui/react"
 
 interface DropdownListProps {
   classes: ClassItem[]; // propsとして受け取るクラスリスト
-  name: string;  // nameプロパティを追加
+  setClass: (id: string) => void;
 }
 
-const DropdownList: React.FC<DropdownListProps> = ({ classes, name }) => {
+const DropdownList = (props: DropdownListProps) => {
   return (
-    <select name={name} className="...">  {/* name属性を追加 */}
-      <option value="">選択してください</option>
-      {classes.map((item) => (
-        <option key={item.id} value={item.id}>  {/* valueをitem.idに設定 */}
+    <Select onChange={(id) => {
+      props.setClass(id);
+    }}>
+      {props.classes.map((item) => (
+        <Option key={item.id} value={item.id}>  {/* valueをitem.idに設定 */}
           {item.name}
-        </option>
+        </Option>
       ))}
-    </select>
+    </Select>
   );
 };
 

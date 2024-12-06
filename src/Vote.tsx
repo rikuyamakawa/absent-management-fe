@@ -16,9 +16,6 @@ function Vote() {
             justify="center"
             align="center"
         >
-
-            <>
-
             <form onSubmit={sendHandler}>
                     <Heading as="h1" size="lg" isTruncated>投票</Heading><br />
 
@@ -38,7 +35,6 @@ function Vote() {
                     送信
                 </Button>
             </form>
-        </>
         </Flex>
     )
 }

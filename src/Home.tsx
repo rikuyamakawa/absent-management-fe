@@ -13,7 +13,7 @@ function Home() {
                     <Link to={"/contact"}>
                         <Button colorScheme={"secondary"} size="2xl" variant={"outline"}>連絡</Button>
                     </Link>
-                    <Link to={"/vote"}>
+                    <Link to={"/SelectVote"}>
                         <Button colorScheme={"secondary"} size="2xl" variant={"outline"}>投票</Button>
                     </Link>
                 </ButtonGroup>
