@@ -4,8 +4,7 @@ import Contact from './Contact'
 import Vote from './Vote'
 import { Reports } from "./reports/Reports";
 import SelectVote from './SelectVote';
-import Teachers from './teachers';
-
+import Teachers from "./Teachers";
 
 function App() {
   return (
@@ -16,7 +15,6 @@ function App() {
       <Route path="/vote" element={<Vote />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/teachers" element={<Teachers reports={[]} />} />
-
     </Routes>
   );
 }

@@ -8,11 +8,15 @@ interface DropdownListProps {
 
 const DropdownList = (props: DropdownListProps) => {
   return (
-    <Select onChange={(id) => {
-      props.setClass(id);
-    }}>
+    <Select
+      onChange={(id) => {
+        props.setClass(id);
+      }}
+    >
       {props.classes.map((item) => (
-        <Option key={item.id} value={item.id}>  {/* valueをitem.idに設定 */}
+        <Option key={item.id} value={item.id}>
+          {" "}
+          {/* valueをitem.idに設定 */}
           {item.name}
         </Option>
       ))}

@@ -4,7 +4,7 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { UIProvider } from '@yamada-ui/react'
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <UIProvider>
       <BrowserRouter>
@@ -12,5 +12,4 @@ createRoot(document.getElementById('root')!).render(
       </BrowserRouter>
     </UIProvider>
   </StrictMode>
-  ,
-)
+);
