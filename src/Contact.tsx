@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { DropdownList, UserDropdownList } from "./DropdownList";
 import { fetchAPI } from "./core/fetchAPI";
-import { Button, Flex, Textarea } from "@yamada-ui/react";
+import {
+  Box,
+  Button,
+  CircleProgress,
+  Flex,
+  Textarea,
+  Text,
+} from "@yamada-ui/react";
+import { useNavigate } from "react-router-dom";
 
 export interface ClassItem {
   id: string;
@@ -21,6 +29,8 @@ const Contact: React.FC = () => {
   );
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [targetId, setTargetId] = useState<string | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const url =
     "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
 
@@ -36,6 +46,7 @@ const Contact: React.FC = () => {
     targetClassId: string,
     password: string
   ) => {
+    setLoading(true);
     const body = {
       api: "report",
       targetId: targetId,
@@ -51,7 +62,13 @@ const Contact: React.FC = () => {
     if (!res.ok) {
       console.log("エラー");
     }
-    console.log(res);
+
+    setTargetId(undefined);
+    setTargetClassId(undefined);
+    setPassword(undefined);
+    navigate("/");
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -73,6 +90,15 @@ const Contact: React.FC = () => {
 
     fetchUser();
   }, []);
+
+  if ((users.length === 0 && classes.length === 0) || loading) {
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
+        <CircleProgress value={18} isAnimation p={5} />
+        <Text>ローディング中です。</Text>
+      </Box>
+    );
+  }
 
   return (
     <Flex height="100vh" justify="center" align="center">
