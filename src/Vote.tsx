@@ -7,12 +7,30 @@ import {
   Textarea,
   VStack,
 } from "@yamada-ui/react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+
+interface ReportDetail {
+  reportId: string;
+  byUser: {
+    id: string;
+    name: string;
+  };
+  targetUser: {
+    id: string;
+    name: string;
+  };
+  className: string;
+  createdAt: string;
+}
 
 function Vote() {
   const location = useLocation();
   const reportId = location.state?.reportId;
-  console.log(reportId);
+  const url =
+    "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
+  const [report, SetReport] = useState<ReportDetail | undefined>(undefined);
+
   const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
     data.preventDefault();
     const formData = new FormData(data.currentTarget);
@@ -21,6 +39,27 @@ function Vote() {
     console.log(pass);
     console.log(voteResult);
   };
+
+  useEffect(() => {
+    if (!reportId) return;
+
+    const fetchReportDetail = async () => {
+      const body = {
+        api: "getReportDetail",
+        reportId: reportId,
+      };
+      const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+      const resText = await res.text();
+      const json = JSON.parse(resText);
+      SetReport(json.data.reportDetail);
+      console.log(report);
+    };
+
+    fetchReportDetail();
+  }, [report, reportId]);
 
   return (
     <Flex height="100vh" justify="center" align="center">
