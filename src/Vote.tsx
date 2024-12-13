@@ -6,6 +6,9 @@ import {
   RadioGroup,
   Textarea,
   VStack,
+  Box,
+  CircleProgress,
+  Text,
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -30,6 +33,7 @@ function Vote() {
   const url =
     "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
   const [report, SetReport] = useState<ReportDetail | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
 
   const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
     data.preventDefault();
@@ -59,7 +63,17 @@ function Vote() {
     };
 
     fetchReportDetail();
+    setLoading(false);
   }, [report, reportId]);
+
+  if (report === undefined || loading) {
+    return (
+      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
+        <CircleProgress value={18} isAnimation p={5} />
+        <Text>ローディング中です。</Text>
+      </Box>
+    );
+  }
 
   return (
     <Flex height="100vh" justify="center" align="center">
