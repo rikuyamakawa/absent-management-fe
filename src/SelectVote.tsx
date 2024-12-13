@@ -24,7 +24,7 @@ const SelectVote = (props: Props) => {
                 justify="center"
                 align="center"
             >
-                <Heading as="h1" size="lg" isTruncated>欠席報告者一覧</Heading><br />
+                <Heading as="h1" size="lg" isTruncated>欠席報告者一覧</Heading><br/>
                 <Link href={"/vote"}>
                     {props.reports.map((report) => (
                         <button value={report.reportId}>{report.targetUserName}</button>
