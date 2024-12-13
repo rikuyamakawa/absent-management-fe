@@ -1,6 +1,5 @@
 import {
   Button,
-  Flex,
   Heading,
   Radio,
   RadioGroup,
@@ -11,7 +10,7 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface ReportDetail {
   reportId: string;
@@ -29,19 +28,43 @@ interface ReportDetail {
 
 function Vote() {
   const location = useLocation();
+  const navigate = useNavigate();
   const reportId = location.state?.reportId;
   const url =
     "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
   const [report, SetReport] = useState<ReportDetail | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [pass, setPass] = useState<string | undefined>(undefined);
+  const [agree, setAgree] = useState(true);
 
-  const sendHandler = (data: React.FormEvent<HTMLFormElement>) => {
-    data.preventDefault();
-    const formData = new FormData(data.currentTarget);
-    const pass = formData.get("pass");
-    const voteResult = formData.get("voteResult");
-    console.log(pass);
-    console.log(voteResult);
+  const sendHandler = async () => {
+    if (!pass || !reportId) return;
+    await executeVote(pass);
+  };
+
+  const executeVote = async (pass: string) => {
+    setLoading(true);
+
+    const body = {
+      api: "vote",
+      reportId: reportId,
+      pass: parseInt(pass),
+      agree: agree,
+    };
+
+    const res = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      console.log("エラー");
+    }
+
+    setPass(undefined);
+    navigate("/");
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -59,7 +82,6 @@ function Vote() {
       const resText = await res.text();
       const json = JSON.parse(resText);
       SetReport(json.data.reportDetail);
-      console.log(report);
     };
 
     fetchReportDetail();
@@ -76,38 +98,43 @@ function Vote() {
   }
 
   return (
-    <Flex height="100vh" justify="center" align="center">
-      <form onSubmit={sendHandler}>
-        <Heading as="h1" size="lg" isTruncated>
-          投票
-        </Heading>
-        <br />
+    <Box>
+      <Heading as="h1" size="lg" isTruncated>
+        投票
+      </Heading>
 
-        <VStack>
-          <RadioGroup name="voteResult" direction="row" defaultValue="賛成">
-            <Radio value="賛成">賛成</Radio>
-            <Radio value="反対">反対</Radio>
-          </RadioGroup>
-        </VStack>
-        <label>パスワード</label>
-        <br />
-        <Textarea
-          name="pass"
-          variant="flushed"
-          placeholder="入力してください"
-          rows={1}
-        ></Textarea>
-
-        <Button
-          type="submit"
-          colorScheme={"secondary"}
-          variant={"outline"}
-          marginTop="2rem"
+      <VStack>
+        <RadioGroup
+          name="voteResult"
+          direction="row"
+          defaultValue="賛成"
+          onChange={(value) => setAgree(value === "賛成")}
         >
-          送信
-        </Button>
-      </form>
-    </Flex>
+          <Radio value="賛成">賛成</Radio>
+          <Radio value="反対">反対</Radio>
+        </RadioGroup>
+      </VStack>
+      <label>パスワード</label>
+
+      <Textarea
+        name="pass"
+        variant="flushed"
+        placeholder="入力してください"
+        rows={1}
+        value={pass}
+        onChange={(e) => setPass(e.target.value)}
+      />
+
+      <Button
+        type="submit"
+        colorScheme={"secondary"}
+        variant={"outline"}
+        marginTop="2rem"
+        onClick={sendHandler}
+      >
+        送信
+      </Button>
+    </Box>
   );
 }
 export default Vote;
