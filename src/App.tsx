@@ -1,9 +1,9 @@
-import { Route, Routes } from 'react-router-dom'
-import Home from './Home'
-import Contact from './Contact'
-import Vote from './Vote'
+import { Route, Routes } from "react-router-dom";
+import Home from "./Home";
+import Contact from "./Contact";
+import Vote from "./Vote";
 import { Reports } from "./reports/Reports";
-import SelectVote from './SelectVote';
+import SelectVote from "./SelectVote";
 import Teachers from "./Teachers";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/SelectVote" element={<SelectVote reports={[]} />} />
+      <Route path="/selectVote" element={<SelectVote />} />
       <Route path="/vote" element={<Vote />} />
       <Route path="/reports" element={<Reports />} />
       <Route path="/teachers" element={<Teachers reports={[]} />} />
@@ -19,4 +19,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
