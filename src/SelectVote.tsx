@@ -7,6 +7,7 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type GetReportsRes = {
   reportId: string;
@@ -19,6 +20,7 @@ const SelectVote = () => {
     "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
   const [reports, setReports] = useState<GetReportsRes[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchReports = async () => {
@@ -62,7 +64,12 @@ const SelectVote = () => {
       </Heading>
 
       {reports.map((report) => (
-        <Box>
+        <Box
+          onClick={() => {
+            navigate("/vote", { state: { reportId: report.reportId } });
+          }}
+          key={report.reportId}
+        >
           <Button>{report.userName}</Button>
         </Box>
       ))}
