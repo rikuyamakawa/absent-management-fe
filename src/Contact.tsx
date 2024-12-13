@@ -10,6 +10,7 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
+import { APIService } from "./Const";
 
 export interface ClassItem {
   id: string;
@@ -31,8 +32,6 @@ const Contact: React.FC = () => {
   const [targetId, setTargetId] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const url =
-    "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
 
   const sendHandler = async (data: React.FormEvent<HTMLFormElement>) => {
     data.preventDefault();
@@ -54,7 +53,7 @@ const Contact: React.FC = () => {
       pass: parseInt(password),
     };
 
-    const res = await fetch(url, {
+    const res = await fetch(APIService.ENDPOINT, {
       method: "POST",
       body: JSON.stringify(body),
     });
@@ -79,7 +78,7 @@ const Contact: React.FC = () => {
         api: "getStudents",
       };
 
-      const res = await fetch(url, {
+      const res = await fetch(APIService.ENDPOINT, {
         method: "POST",
         body: JSON.stringify(body),
       });

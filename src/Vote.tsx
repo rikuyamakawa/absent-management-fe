@@ -11,6 +11,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { APIService } from "./Const";
 
 interface ReportDetail {
   reportId: string;
@@ -30,8 +31,6 @@ function Vote() {
   const location = useLocation();
   const navigate = useNavigate();
   const reportId = location.state?.reportId;
-  const url =
-    "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
   const [report, SetReport] = useState<ReportDetail | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [pass, setPass] = useState<string | undefined>(undefined);
@@ -52,7 +51,7 @@ function Vote() {
       agree: agree,
     };
 
-    const res = await fetch(url, {
+    const res = await fetch(APIService.ENDPOINT, {
       method: "POST",
       body: JSON.stringify(body),
     });
@@ -75,7 +74,7 @@ function Vote() {
         api: "getReportDetail",
         reportId: reportId,
       };
-      const res = await fetch(url, {
+      const res = await fetch(APIService.ENDPOINT, {
         method: "POST",
         body: JSON.stringify(body),
       });

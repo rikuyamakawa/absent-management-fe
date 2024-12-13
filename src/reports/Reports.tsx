@@ -1,5 +1,6 @@
 import { Card, Container, Heading, Text } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
+import { APIService } from "../Const";
 
 interface Report {
   reportId: string;
@@ -11,13 +12,11 @@ export const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
 
   useEffect(() => {
-    const url =
-      "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
     const body = {
       api: "getTodayReports",
     };
 
-    fetch(url, { method: "POST", body: JSON.stringify(body) })
+    fetch(APIService.ENDPOINT, { method: "POST", body: JSON.stringify(body) })
       .then((res) => {
         return res.text();
       })

@@ -8,6 +8,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { APIService } from "./Const";
 
 type GetReportsRes = {
   reportId: string;
@@ -16,8 +17,6 @@ type GetReportsRes = {
 };
 
 const SelectVote = () => {
-  const url =
-    "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
   const [reports, setReports] = useState<GetReportsRes[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -28,7 +27,7 @@ const SelectVote = () => {
         api: "getTodayReports",
       };
 
-      const res = await fetch(url, {
+      const res = await fetch(APIService.ENDPOINT, {
         method: "POST",
         body: JSON.stringify(body),
       });
