@@ -11,7 +11,6 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { APIService } from "./Const";
 import { fetchAPI } from "./core/fetchAPI";
 
 interface ReportDetail {
@@ -68,13 +67,8 @@ function Vote() {
         api: "getReportDetail",
         reportId: reportId,
       };
-      const res = await fetch(APIService.ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const resText = await res.text();
-      const json = JSON.parse(resText);
-      SetReport(json.data.reportDetail);
+      const reportDetail: ReportDetail = await fetchAPI(body, "reportDetail");
+      SetReport(reportDetail);
     };
 
     fetchReportDetail();
