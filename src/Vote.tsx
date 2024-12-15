@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { APIService } from "./Const";
+import { fetchAPI } from "./core/fetchAPI";
 
 interface ReportDetail {
   reportId: string;
@@ -50,15 +51,8 @@ function Vote() {
       pass: parseInt(pass),
       agree: agree,
     };
-
-    const res = await fetch(APIService.ENDPOINT, {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      console.log("エラー");
-    }
+    const res: string = await fetchAPI(body, "message");
+    if (!res) return;
 
     setPass(undefined);
     navigate("/");
