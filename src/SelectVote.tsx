@@ -8,7 +8,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { APIService } from "./Const";
+import { fetchAPI } from "./core/fetchAPI";
 
 type GetReportsRes = {
   reportId: string;
@@ -23,17 +23,14 @@ const SelectVote = () => {
 
   useEffect(() => {
     const fetchReports = async () => {
-      const body = {
-        api: "getTodayReports",
-      };
+      const reports: GetReportsRes[] = await fetchAPI(
+        {
+          api: "getTodayReports",
+        },
+        "reports"
+      );
 
-      const res = await fetch(APIService.ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const resText = await res.text();
-      const json = JSON.parse(resText);
-      setReports(json.data.reports);
+      setReports(reports);
       setLoading(false);
     };
     fetchReports();
