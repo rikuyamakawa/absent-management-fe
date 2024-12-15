@@ -10,7 +10,6 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
-import { APIService } from "./Const";
 
 export interface ClassItem {
   id: string;
@@ -23,7 +22,7 @@ export interface User {
 }
 
 const Contact: React.FC = () => {
-  const [classes, setClasses] = useState<ClassItem[]>([]); // 初期値を空の配列に
+  const [classes, setClasses] = useState<ClassItem[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [targetClassId, setTargetClassId] = useState<string | undefined>(
     undefined
@@ -53,14 +52,8 @@ const Contact: React.FC = () => {
       pass: parseInt(password),
     };
 
-    const res = await fetch(APIService.ENDPOINT, {
-      method: "POST",
-      body: JSON.stringify(body),
-    });
-
-    if (!res.ok) {
-      console.log("エラー");
-    }
+    const res: string = await fetchAPI(body, "message");
+    if (!res) return;
 
     setTargetId(undefined);
     setTargetClassId(undefined);
@@ -71,22 +64,26 @@ const Contact: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchAPI("getClasses", setClasses); // APIからデータを取得してstateにセット
-
+    const getClasses = async () => {
+      const classes: ClassItem[] = await fetchAPI(
+        {
+          api: "getClasses",
+        },
+        "classes"
+      );
+      setClasses(classes);
+    };
     const fetchUser = async () => {
-      const body = {
-        api: "getStudents",
-      };
-
-      const res = await fetch(APIService.ENDPOINT, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
-      const resText = await res.text();
-      const json = JSON.parse(resText);
-      setUsers(json.data.users);
+      const users: User[] = await fetchAPI(
+        {
+          api: "getStudents",
+        },
+        "users"
+      );
+      setUsers(users);
     };
 
+    getClasses();
     fetchUser();
   }, []);
 
