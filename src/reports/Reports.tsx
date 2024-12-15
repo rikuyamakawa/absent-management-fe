@@ -19,7 +19,6 @@ export const Reports = () => {
         },
         "reports"
       );
-      console.log(reports);
       setReports(reports);
     };
     getReports();
