@@ -1,6 +1,6 @@
 import { Card, Container, Heading, Text } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
-import { APIService } from "../Const";
+import { fetchAPI } from "../core/fetchAPI";
 
 interface Report {
   reportId: string;
@@ -12,18 +12,17 @@ export const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
 
   useEffect(() => {
-    const body = {
-      api: "getTodayReports",
+    const getReports = async () => {
+      const reports: Report[] = await fetchAPI(
+        {
+          api: "getTodayReports",
+        },
+        "reports"
+      );
+      console.log(reports);
+      setReports(reports);
     };
-
-    fetch(APIService.ENDPOINT, { method: "POST", body: JSON.stringify(body) })
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => {
-        const json = JSON.parse(res);
-        setReports(json.data.reports);
-      });
+    getReports();
   }, []);
 
   return (
