@@ -1,4 +1,16 @@
-import { Box, CircleProgress, Flex, Heading, Text } from "@yamada-ui/react";
+import {
+  Badge,
+  Box,
+  Card,
+  CardBody,
+  CircleProgress,
+  Container,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+  VStack,
+} from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../core/fetchAPI";
 
@@ -9,7 +21,7 @@ type GetAbsentStudents = {
   classId: string;
   className: string;
   reportId: string;
-  isCOnfirm: boolean;
+  isConfirm: boolean;
   createdAt: string;
 };
 
@@ -39,15 +51,49 @@ const Teachers = () => {
   }
 
   return (
-    <Flex height="100vh" justify="center" align="center">
-      <Heading as="h1" size="lg" isTruncated>
-        欠席者一覧
+    <Container py={8} maxW="container.lg">
+      <Heading mb={6} textAlign="center">
+        欠席者履歴
       </Heading>
-      <br />
-      {students.map((student) => (
-        <Text key={student.id}>{student.userId}</Text>
-      ))}
-    </Flex>
+      <VStack>
+        {students.map((student) => (
+          <Card
+            key={student.id}
+            w="100%"
+            boxShadow="md"
+            borderRadius="lg"
+            borderLeftWidth="8px"
+            borderColor={student.isConfirm ? "green.400" : "red.400"}
+            _hover={{
+              boxShadow: "lg",
+              transform: "scale(1.02)",
+              transition: "0.2s",
+            }}
+          >
+            <CardBody>
+              <Flex align="center">
+                <Box>
+                  <Heading size="md">{student.userName}</Heading>
+                  <Text fontSize="sm" color="gray.500" mt={1}>
+                    クラス: {student.className} | 日付:{" "}
+                    {new Date(student.createdAt).toLocaleDateString()}
+                  </Text>
+                </Box>
+                <Spacer />
+                <Badge
+                  colorScheme={student.isConfirm ? "green" : "red"}
+                  fontSize="0.9em"
+                  p={1}
+                  borderRadius="md"
+                >
+                  {student.isConfirm ? "確認済み" : "未確認"}
+                </Badge>
+              </Flex>
+            </CardBody>
+          </Card>
+        ))}
+      </VStack>
+    </Container>
   );
 };
 export default Teachers;
