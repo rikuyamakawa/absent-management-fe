@@ -1,10 +1,10 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./Home";
-import Contact from "./Contact";
-import Vote from "./Vote";
-import { Reports } from "./reports/Reports";
-import SelectVote from "./SelectVote";
-import Teachers from "./Teachers";
+import Home from "./pages/Home";
+import { Reports } from "./pages/Reports";
+import Teachers from "./pages/Teachers";
+import SelectVote from "./pages/SelectVote";
+import Contact from "./pages/Contact";
+import Vote from "./pages/Vote";
 
 function App() {
   return (

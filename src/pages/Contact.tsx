@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { DropdownList, UserDropdownList } from "./DropdownList";
-import { fetchAPI } from "./core/fetchAPI";
 import {
   Box,
   Button,
@@ -10,6 +8,8 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
+import { fetchAPI } from "../core/fetchAPI";
+import { DropdownList, UserDropdownList } from "../DropdownList";
 
 export interface ClassItem {
   id: string;

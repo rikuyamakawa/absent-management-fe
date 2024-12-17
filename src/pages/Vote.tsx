@@ -11,7 +11,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAPI } from "./core/fetchAPI";
+import { fetchAPI } from "../core/fetchAPI";
 
 interface ReportDetail {
   reportId: string;

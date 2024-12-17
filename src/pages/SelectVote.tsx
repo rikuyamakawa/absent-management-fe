@@ -8,7 +8,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchAPI } from "./core/fetchAPI";
+import { fetchAPI } from "../core/fetchAPI";
 
 type GetReportsRes = {
   reportId: string;
