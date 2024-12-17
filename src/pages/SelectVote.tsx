@@ -1,10 +1,13 @@
 import {
   Box,
-  Button,
+  Card,
+  CardBody,
   CircleProgress,
+  Container,
   Flex,
   Heading,
   Text,
+  VStack,
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -54,22 +57,24 @@ const SelectVote = () => {
   }
 
   return (
-    <Box>
-      <Heading as="h1" size="lg" isTruncated>
-        欠席報告者一覧
-      </Heading>
-
-      {reports.map((report) => (
-        <Box
-          onClick={() => {
-            navigate("/vote", { state: { reportId: report.reportId } });
-          }}
-          key={report.reportId}
-        >
-          <Button>{report.userName}</Button>
-        </Box>
-      ))}
-    </Box>
+    <Container>
+      <Heading>欠席報告者一覧</Heading>
+      <VStack>
+        {reports.map((report) => (
+          <Card
+            key={report.reportId}
+            onClick={() => {
+              navigate("/vote", { state: { reportId: report.reportId } });
+            }}
+          >
+            <CardBody>
+              <Heading>{report.userName}</Heading>
+              <Text>{report.className}</Text>
+            </CardBody>
+          </Card>
+        ))}
+      </VStack>
+    </Container>
   );
 };
 
