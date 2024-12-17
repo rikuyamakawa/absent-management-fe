@@ -4,8 +4,10 @@ import { fetchAPI } from "../core/fetchAPI";
 
 type GetAbsentStudents = {
   id: string;
-  classId: string;
   userId: string;
+  userName: string;
+  classId: string;
+  className: string;
   reportId: string;
   isCOnfirm: boolean;
   createdAt: string;
