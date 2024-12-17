@@ -59,16 +59,7 @@ const Teachers = () => {
         {students.map((student) => (
           <Card
             key={student.id}
-            w="100%"
-            boxShadow="md"
-            borderRadius="lg"
-            borderLeftWidth="8px"
             borderColor={student.isConfirm ? "green.400" : "red.400"}
-            _hover={{
-              boxShadow: "lg",
-              transform: "scale(1.02)",
-              transition: "0.2s",
-            }}
           >
             <CardBody>
               <Flex align="center">
