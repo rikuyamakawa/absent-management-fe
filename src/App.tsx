@@ -14,7 +14,7 @@ function App() {
       <Route path="/selectVote" element={<SelectVote />} />
       <Route path="/vote" element={<Vote />} />
       <Route path="/reports" element={<Reports />} />
-      <Route path="/teachers" element={<Teachers reports={[]} />} />
+      <Route path="/teachers" element={<Teachers />} />
     </Routes>
   );
 }
