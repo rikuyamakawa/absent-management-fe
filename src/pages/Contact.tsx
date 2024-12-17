@@ -9,7 +9,7 @@ import {
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
-import { DropdownList, UserDropdownList } from "../DropdownList";
+import { DropdownList, UserDropdownList } from "../components/DropdownList";
 
 export interface ClassItem {
   id: string;
