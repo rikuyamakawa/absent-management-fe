@@ -3,13 +3,17 @@ import {
   Box,
   Button,
   CircleProgress,
-  Flex,
   Textarea,
   Text,
+  Container,
+  Spacer,
+  FormControl,
+  Flex,
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
 import { DropdownList, UserDropdownList } from "../components/DropdownList";
+import { CustomHeading } from "../components/CustomHeading";
 
 export interface ClassItem {
   id: string;
@@ -97,41 +101,55 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <Flex height="100vh" justify="center" align="center">
-      <form onSubmit={sendHandler}>
-        <h1 style={{ fontWeight: "bold", fontSize: "1.5rem" }}>連絡ページ</h1>
-        <br />
-        <label style={{ fontSize: "1.2rem" }}>氏名</label>
-        <br />
-        <div>
-          <UserDropdownList users={users} setUser={setTargetId} />
-        </div>
-        <label>科目名</label>
-        <br />
-        <div>
-          <DropdownList classes={classes} setClass={setTargetClassId} />{" "}
-          {/* nameプロパティを追加 */}
-        </div>
-        <label>パスワード</label>
-        <br />
-        <Textarea
-          name="pass"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          variant="flushed"
-          placeholder="入力してください"
-          rows={1}
-        />
-        <Button
-          type="submit"
-          colorScheme={"secondary"}
-          variant={"outline"}
-          marginTop="2rem"
+    <Container textAlign={"center"}>
+      <Spacer />
+      <CustomHeading>連絡する</CustomHeading>
+      <Box>
+        <FormControl
+          label={"氏名"}
+          labelProps={{
+            color: "whiteAlpha.950",
+            textAlign: "left",
+            fontFamily: "mono",
+          }}
+          py={"4"}
         >
-          送信
-        </Button>
-      </form>
-    </Flex>
+          <UserDropdownList users={users} setUser={setTargetId} />
+        </FormControl>
+        <FormControl
+          label={"科目"}
+          labelProps={{
+            color: "whiteAlpha.950",
+            textAlign: "left",
+            fontFamily: "mono",
+          }}
+          py={"4"}
+        >
+          <DropdownList classes={classes} setClass={setTargetClassId} />
+        </FormControl>
+        <FormControl
+          label={"パスワード"}
+          labelProps={{
+            color: "whiteAlpha.950",
+            textAlign: "left",
+            fontFamily: "mono",
+          }}
+          py={"4"}
+        >
+          <Textarea
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            rows={1}
+            textAlign={"left"}
+            color={"whiteAlpha.950"}
+            fontFamily={"mono"}
+          />
+        </FormControl>
+        <Flex justifyContent={"flex-end"} py={4}>
+          <Button onClick={() => sendHandler}>送信</Button>
+        </Flex>
+      </Box>
+    </Container>
   );
 };
 
