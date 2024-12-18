@@ -3,7 +3,6 @@ import {
   Box,
   Card,
   CardBody,
-  CircleProgress,
   Container,
   Flex,
   Heading,
@@ -13,6 +12,7 @@ import {
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { fetchAPI } from "../core/fetchAPI";
+import { Loading } from "../components/Loading";
 
 type GetAbsentStudents = {
   id: string;
@@ -42,12 +42,7 @@ const Teachers = () => {
   }, []);
 
   if (!students) {
-    return (
-      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
-        <CircleProgress value={18} isAnimation p={5} />
-        <Text>ローディング中です。</Text>
-      </Box>
-    );
+    return <Loading />;
   }
 
   return (

@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  CircleProgress,
   Textarea,
-  Text,
   Container,
   Spacer,
   FormControl,
@@ -14,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
 import { DropdownList, UserDropdownList } from "../components/DropdownList";
 import { CustomHeading } from "../components/CustomHeading";
+import { Loading } from "../components/Loading";
 
 export interface ClassItem {
   id: string;
@@ -92,12 +91,7 @@ const Contact: React.FC = () => {
   }, []);
 
   if ((users.length === 0 && classes.length === 0) || loading) {
-    return (
-      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
-        <CircleProgress value={18} isAnimation p={5} />
-        <Text>ローディング中です。</Text>
-      </Box>
-    );
+    return <Loading />;
   }
 
   return (

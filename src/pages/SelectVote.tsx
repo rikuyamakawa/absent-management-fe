@@ -1,8 +1,6 @@
 import {
-  Box,
   Card,
   CardBody,
-  CircleProgress,
   Container,
   Flex,
   Heading,
@@ -12,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
+import { Loading } from "../components/Loading";
 
 type GetReportsRes = {
   reportId: string;
@@ -40,12 +39,7 @@ const SelectVote = () => {
   }, []);
 
   if (loading) {
-    return (
-      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
-        <CircleProgress value={18} isAnimation p={5} />
-        <Text>ローディング中です。</Text>
-      </Box>
-    );
+    return <Loading />;
   }
 
   if (reports.length == 0) {

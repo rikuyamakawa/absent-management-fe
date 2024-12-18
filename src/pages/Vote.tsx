@@ -6,12 +6,11 @@ import {
   Textarea,
   VStack,
   Box,
-  CircleProgress,
-  Text,
 } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
+import { Loading } from "../components/Loading";
 
 interface ReportDetail {
   reportId: string;
@@ -76,12 +75,7 @@ function Vote() {
   }, [report, reportId]);
 
   if (report === undefined || loading) {
-    return (
-      <Box display="flex" flexDirection="column" alignItems="center" mb={8}>
-        <CircleProgress value={18} isAnimation p={5} />
-        <Text>ローディング中です。</Text>
-      </Box>
-    );
+    return <Loading />;
   }
 
   return (
