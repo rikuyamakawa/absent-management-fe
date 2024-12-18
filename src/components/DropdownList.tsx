@@ -1,8 +1,8 @@
-import { ClassItem, User } from "./Contact";
 import { Select, Option } from "@yamada-ui/react";
+import { ClassItem, User } from "../pages/Contact";
 
 interface DropdownListProps {
-  classes: ClassItem[]; // propsとして受け取るクラスリスト
+  classes: ClassItem[];
   setClass: (id: string) => void;
 }
 
@@ -12,11 +12,18 @@ export const DropdownList = (props: DropdownListProps) => {
       onChange={(id) => {
         props.setClass(id);
       }}
+      color={"whiteAlpha.950"}
+      fontFamily={"mono"}
     >
       {props.classes.map((item) => (
-        <Option key={item.id} value={item.id}>
-          {" "}
-          {/* valueをitem.idに設定 */}
+        <Option
+          key={item.id}
+          value={item.id}
+          backgroundColor={"blackAlpha.800"}
+          _selected={{ bg: "blackAlpha.700" }}
+          _checked={{ bg: "blackAlpha.700" }}
+          _hover={{ bg: "blackAlpha.700" }}
+        >
           {item.name}
         </Option>
       ))}
@@ -35,9 +42,18 @@ export const UserDropdownList = (props: UserDropDownListProps) => {
       onChange={(id) => {
         props.setUser(id);
       }}
+      color={"whiteAlpha.950"}
+      fontFamily={"mono"}
     >
       {props.users.map((item) => (
-        <Option key={item.id} value={item.id}>
+        <Option
+          key={item.id}
+          value={item.id}
+          backgroundColor={"blackAlpha.800"}
+          _selected={{ bg: "blackAlpha.700" }}
+          _checked={{ bg: "blackAlpha.700" }}
+          _hover={{ bg: "blackAlpha.700" }}
+        >
           {item.name}
         </Option>
       ))}
