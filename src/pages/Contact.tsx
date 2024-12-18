@@ -35,8 +35,7 @@ const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const sendHandler = async (data: React.FormEvent<HTMLFormElement>) => {
-    data.preventDefault();
+  const sendHandler = async () => {
     if (!targetId || !targetClassId || !password) return;
 
     await executeReport(targetId, targetClassId, password);
@@ -140,7 +139,7 @@ const Contact: React.FC = () => {
           />
         </FormControl>
         <Flex justifyContent={"flex-end"} py={4}>
-          <Button onClick={() => sendHandler}>送信</Button>
+          <Button onClick={sendHandler}>送信</Button>
         </Flex>
       </Box>
     </Container>
