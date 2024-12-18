@@ -7,6 +7,11 @@ import {
   Spacer,
   FormControl,
   Flex,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Text,
 } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
 import { fetchAPI } from "../core/fetchAPI";
@@ -30,8 +35,10 @@ const Contact: React.FC = () => {
   const [targetClassId, setTargetClassId] = useState<string | undefined>(
     undefined
   );
+  const [userId, setUserId] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [targetId, setTargetId] = useState<string | undefined>(undefined);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -39,6 +46,20 @@ const Contact: React.FC = () => {
     if (!targetId || !targetClassId || !password) return;
 
     await executeReport(targetId, targetClassId, password);
+    setIsModalOpen(false);
+  };
+
+  const confirmHandler = async () => {
+    if (!userId) return;
+    setLoading(true);
+    const body = {
+      api: "sendOneTimePass",
+      userId: userId,
+    };
+
+    await fetchAPI(body, "isSuccess");
+    setLoading(false);
+    setIsModalOpen(true);
   };
 
   const executeReport = async (
@@ -99,6 +120,24 @@ const Contact: React.FC = () => {
       <CustomHeading>連絡する</CustomHeading>
       <Box>
         <FormControl
+          label={"自分の学籍番号"}
+          labelProps={{
+            color: "whiteAlpha.950",
+            textAlign: "left",
+            fontFamily: "mono",
+          }}
+          py={"4"}
+        >
+          <Textarea
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            rows={1}
+            textAlign={"left"}
+            color={"whiteAlpha.950"}
+            fontFamily={"mono"}
+          />
+        </FormControl>
+        <FormControl
           label={"氏名"}
           labelProps={{
             color: "whiteAlpha.950",
@@ -120,28 +159,37 @@ const Contact: React.FC = () => {
         >
           <DropdownList classes={classes} setClass={setTargetClassId} />
         </FormControl>
-        <FormControl
-          label={"パスワード"}
-          labelProps={{
-            color: "whiteAlpha.950",
-            textAlign: "left",
-            fontFamily: "mono",
-          }}
-          py={"4"}
-        >
-          <Textarea
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            rows={1}
-            textAlign={"left"}
-            color={"whiteAlpha.950"}
-            fontFamily={"mono"}
-          />
-        </FormControl>
         <Flex justifyContent={"flex-end"} py={4}>
-          <Button onClick={sendHandler}>送信</Button>
+          <Button onClick={confirmHandler}>確認</Button>
         </Flex>
       </Box>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ModalHeader>パスワードを入力してください。</ModalHeader>
+        <ModalBody>
+          <Text>LINEにワンタイムパスワードを送信しました。</Text>
+          <Text>対象者 {users.find((user) => user.id === targetId)?.name}</Text>
+          <Text>
+            対象授業 {classes.find((c) => c.id === targetClassId)?.name}
+          </Text>
+          <FormControl label={"パスワード"} py={"4"} fontFamily={"mono"}>
+            <Textarea
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              rows={1}
+              fontFamily={"mono"}
+            />
+          </FormControl>
+        </ModalBody>
+        <ModalFooter>
+          <Button variant="ghost" onClick={() => setIsModalOpen(false)}>
+            閉じる
+          </Button>
+          <Button colorScheme={"primary"} onClick={sendHandler}>
+            投票
+          </Button>
+        </ModalFooter>
+      </Modal>
     </Container>
   );
 };

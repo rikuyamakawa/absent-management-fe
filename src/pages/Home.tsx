@@ -1,6 +1,5 @@
 import { Button, Container, Flex, Spacer } from "@yamada-ui/react";
 import { Link } from "react-router-dom";
-import { CustomText } from "../components/CustomText";
 import { CustomHeading } from "../components/CustomHeading";
 
 function Home() {
@@ -8,7 +7,6 @@ function Home() {
     <Container textAlign={"center"}>
       <Spacer />
       <CustomHeading>欠席者確認</CustomHeading>
-      <CustomText>aa</CustomText>
       <Flex gap={"md"} justifyContent={"center"}>
         <Link to={"/contact"}>
           <Button>連絡</Button>
