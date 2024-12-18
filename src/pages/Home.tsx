@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <Flex height="100vh" justify="center" align="center" bg="blackAlpha.800">
+    <Flex height="100vh" justify="center" align="center">
       <Container>
         <ButtonGroup
           gap={"md"}
