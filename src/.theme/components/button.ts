@@ -5,7 +5,7 @@ export const Button: ComponentStyle<"Button"> = {
     _hover: { transform: "scale(1.05)" },
   },
   defaultProps: {
-    colorScheme: "teal",
+    colorScheme: "primary",
     size: "lg",
   },
 };
