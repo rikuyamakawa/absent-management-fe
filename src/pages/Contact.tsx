@@ -151,6 +151,7 @@ const Contact: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               rows={1}
+              color={"blackAlpha.950"}
               fontFamily={"mono"}
             />
           </FormControl>
