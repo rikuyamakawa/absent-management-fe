@@ -14,15 +14,16 @@ export const DropdownList = (props: DropdownListProps) => {
       }}
       color={"whiteAlpha.950"}
       fontFamily={"mono"}
+      variant={"flushed"}
     >
       {props.classes.map((item) => (
         <Option
           key={item.id}
           value={item.id}
-          backgroundColor={"blackAlpha.800"}
+          bg={"blackAlpha.800"}
           _selected={{ bg: "blackAlpha.700" }}
-          _checked={{ bg: "blackAlpha.700" }}
           _hover={{ bg: "blackAlpha.700" }}
+          _first={{ bg: "blackAlpha.700" }}
         >
           {item.name}
         </Option>
@@ -44,15 +45,16 @@ export const UserDropdownList = (props: UserDropDownListProps) => {
       }}
       color={"whiteAlpha.950"}
       fontFamily={"mono"}
+      variant={"flushed"}
     >
       {props.users.map((item) => (
         <Option
           key={item.id}
           value={item.id}
-          backgroundColor={"blackAlpha.800"}
+          bg={"blackAlpha.800"}
           _selected={{ bg: "blackAlpha.700" }}
-          _checked={{ bg: "blackAlpha.700" }}
           _hover={{ bg: "blackAlpha.700" }}
+          _first={{ bg: "blackAlpha.700" }}
         >
           {item.name}
         </Option>

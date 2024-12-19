@@ -4,6 +4,7 @@ export const Card: ComponentMultiStyle<"Card"> = {
   baseStyle: {
     container: {
       borderRadius: "lg",
+      bg: "primary",
       _hover: {
         boxShadow: "lg",
         transform: "scale(1.02)",

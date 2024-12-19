@@ -1,11 +1,9 @@
 import { ComponentMultiStyle } from "@yamada-ui/react";
 
-export const FormControl: ComponentMultiStyle<"FormControl"> = {
+export const Radio: ComponentMultiStyle<"Radio"> = {
   baseStyle: {
     label: {
       color: "whiteAlpha.950",
-      textAlign: "left",
-      fontFamily: "mono",
     },
   },
 };

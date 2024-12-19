@@ -119,44 +119,18 @@ const Contact: React.FC = () => {
       <Spacer />
       <CustomHeading>連絡する</CustomHeading>
       <Box>
-        <FormControl
-          label={"自分の学籍番号"}
-          labelProps={{
-            color: "whiteAlpha.950",
-            textAlign: "left",
-            fontFamily: "mono",
-          }}
-          py={"4"}
-        >
+        <FormControl label={"自分の学籍番号"} py={"4"}>
           <Textarea
             value={userId}
+            placeholder="J220XX"
             onChange={(e) => setUserId(e.target.value)}
             rows={1}
-            textAlign={"left"}
-            color={"whiteAlpha.950"}
-            fontFamily={"mono"}
           />
         </FormControl>
-        <FormControl
-          label={"氏名"}
-          labelProps={{
-            color: "whiteAlpha.950",
-            textAlign: "left",
-            fontFamily: "mono",
-          }}
-          py={"4"}
-        >
+        <FormControl label={"氏名"} py={"4"}>
           <UserDropdownList users={users} setUser={setTargetId} />
         </FormControl>
-        <FormControl
-          label={"科目"}
-          labelProps={{
-            color: "whiteAlpha.950",
-            textAlign: "left",
-            fontFamily: "mono",
-          }}
-          py={"4"}
-        >
+        <FormControl label={"科目"} py={"4"}>
           <DropdownList classes={classes} setClass={setTargetClassId} />
         </FormControl>
         <Flex justifyContent={"flex-end"} py={4}>
@@ -177,6 +151,7 @@ const Contact: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               rows={1}
+              color={"blackAlpha.950"}
               fontFamily={"mono"}
             />
           </FormControl>
