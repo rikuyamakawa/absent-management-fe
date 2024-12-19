@@ -1,5 +1,6 @@
 import { Card, Container, Heading, Text } from "@yamada-ui/react";
 import { useEffect, useState } from "react";
+import { fetchAPI } from "../core/fetchAPI";
 
 interface Report {
   reportId: string;
@@ -11,20 +12,16 @@ export const Reports = () => {
   const [reports, setReports] = useState<Report[]>([]);
 
   useEffect(() => {
-    const url =
-      "https://script.google.com/macros/s/AKfycbxmlNsEeqe9Iw1rDDCkxNrfmmglIjGuoSHCTobuhCUulTCQ7luvr1X5R14o2wPFVWpseg/exec";
-    const body = {
-      api: "getTodayReports",
+    const getReports = async () => {
+      const reports: Report[] = await fetchAPI(
+        {
+          api: "getTodayReports",
+        },
+        "reports"
+      );
+      setReports(reports);
     };
-
-    fetch(url, { method: "POST", body: JSON.stringify(body) })
-      .then((res) => {
-        return res.text();
-      })
-      .then((res) => {
-        const json = JSON.parse(res);
-        setReports(json.data.reports);
-      });
+    getReports();
   }, []);
 
   return (

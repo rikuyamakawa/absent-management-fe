@@ -1,22 +1,22 @@
-import { Route, Routes } from 'react-router-dom'
-import Home from './Home'
-import Contact from './Contact'
-import Vote from './Vote'
-import { Reports } from "./reports/Reports";
-import SelectVote from './SelectVote';
-import Teachers from "./Teachers";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import { Reports } from "./pages/Reports";
+import Teachers from "./pages/Teachers";
+import SelectVote from "./pages/SelectVote";
+import Contact from "./pages/Contact";
+import Vote from "./pages/Vote";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/SelectVote" element={<SelectVote reports={[]} />} />
+      <Route path="/selectVote" element={<SelectVote />} />
       <Route path="/vote" element={<Vote />} />
       <Route path="/reports" element={<Reports />} />
-      <Route path="/teachers" element={<Teachers reports={[]} />} />
+      <Route path="/teachers" element={<Teachers />} />
     </Routes>
   );
 }
 
-export default App
+export default App;
