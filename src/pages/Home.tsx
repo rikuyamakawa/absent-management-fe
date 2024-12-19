@@ -1,11 +1,15 @@
-import { Button, Container, Flex, Spacer } from "@yamada-ui/react";
+import { Button, Container, Flex } from "@yamada-ui/react";
 import { Link } from "react-router-dom";
 import { CustomHeading } from "../components/CustomHeading";
 
 function Home() {
   return (
-    <Container textAlign={"center"}>
-      <Spacer />
+    <Container
+      textAlign={"center"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      height={"100vh"}
+    >
       <CustomHeading>欠席者確認</CustomHeading>
       <Flex gap={"md"} justifyContent={"center"}>
         <Link to={"/contact"}>
